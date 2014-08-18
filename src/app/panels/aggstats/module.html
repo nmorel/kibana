@@ -1,0 +1,44 @@
+<div ng-controller='aggstats' ng-init="init()">
+  <style>
+    .terms-wrapper {
+      display: table;
+      width: 100%;
+    }
+  </style>
+
+  <div class="terms-wrapper">
+
+    <!-- TABLE -->
+    <table ng-style="panel.style" class="table table-striped table-condensed">
+      <thead>
+        <th>Service</th>
+        <th>Count</th>
+        <th>Sum</th>
+        <th>Average</th>
+        <th ng-show="panel.percentile">50 pct</th>
+        <th ng-show="panel.percentile">75 pct</th>
+        <th ng-show="panel.percentile">95 pct</th>
+        <th ng-show="panel.percentile">99 pct</th>
+        <th>Action</th>
+      </thead>
+      <tr ng-repeat="bucket in data">
+        <td class="terms-legend-term">{{bucket.key}}</td>
+        <td>{{bucket.stats.count | number : 2}}</td>
+        <td>{{bucket.stats.sum | number : 2}}</td>
+        <td>{{bucket.stats.avg | number : 2}}</td>
+        <td ng-show="panel.percentile">{{bucket.percentiles.values["50.0"] | number : 2}}</td>
+        <td ng-show="panel.percentile">{{bucket.percentiles.values["75.0"] | number : 2}}</td>
+        <td ng-show="panel.percentile">{{bucket.percentiles.values["95.0"] | number : 2}}</td>
+        <td ng-show="panel.percentile">{{bucket.percentiles.values["99.0"] | number : 2}}</td>
+        <td>
+        <span>
+          <i class='icon-search pointer' ng-click="build_search(bucket.key)"></i>
+          <i class='icon-ban-circle pointer' ng-click="build_search(bucket.key,true)"></i>
+        </span>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+</div>
